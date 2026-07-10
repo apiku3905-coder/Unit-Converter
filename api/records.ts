@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+const redisUrl = process.env.REDIS_URL || '';
+const redis = redisUrl ? new Redis(redisUrl) : null;
 
 const DEFAULT_RECORDS = [
   {
@@ -61,8 +64,13 @@ export default async function handler(req: any, res: any) {
   try {
     const { method } = req;
 
+    if (!redis) {
+      return res.status(500).json({ error: 'REDIS_URL environment variable is missing' });
+    }
+
     if (method === 'GET') {
-      const data = await kv.get('prt_records');
+      const dataStr = await redis.get('prt_records');
+      const data = dataStr ? JSON.parse(dataStr) : null;
       return res.status(200).json(data || DEFAULT_RECORDS);
     }
 
@@ -71,9 +79,10 @@ export default async function handler(req: any, res: any) {
       if (!newRec || !newRec.id) {
         return res.status(400).json({ error: 'Invalid data' });
       }
-      const data: any = await kv.get('prt_records') || DEFAULT_RECORDS;
+      const dataStr = await redis.get('prt_records');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_RECORDS;
       const updated = [...data, newRec];
-      await kv.set('prt_records', updated);
+      await redis.set('prt_records', JSON.stringify(updated));
       return res.status(200).json({ success: true });
     }
 
@@ -82,9 +91,10 @@ export default async function handler(req: any, res: any) {
       if (!updatedRec || !updatedRec.id) {
         return res.status(400).json({ error: 'Invalid data' });
       }
-      const data: any = await kv.get('prt_records') || DEFAULT_RECORDS;
+      const dataStr = await redis.get('prt_records');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_RECORDS;
       const updated = data.map((r: any) => r.id === updatedRec.id ? updatedRec : r);
-      await kv.set('prt_records', updated);
+      await redis.set('prt_records', JSON.stringify(updated));
       return res.status(200).json({ success: true });
     }
 
@@ -93,9 +103,10 @@ export default async function handler(req: any, res: any) {
       if (!id) {
         return res.status(400).json({ error: 'Missing id query parameter' });
       }
-      const data: any = await kv.get('prt_records') || DEFAULT_RECORDS;
+      const dataStr = await redis.get('prt_records');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_RECORDS;
       const updated = data.filter((r: any) => r.id !== id);
-      await kv.set('prt_records', updated);
+      await redis.set('prt_records', JSON.stringify(updated));
       return res.status(200).json({ success: true });
     }
 

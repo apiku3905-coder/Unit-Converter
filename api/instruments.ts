@@ -1,4 +1,7 @@
-import { kv } from '@vercel/kv';
+import Redis from 'ioredis';
+
+const redisUrl = process.env.REDIS_URL || '';
+const redis = redisUrl ? new Redis(redisUrl) : null;
 
 const DEFAULT_INSTRUMENTS = [
   {
@@ -21,8 +24,13 @@ export default async function handler(req: any, res: any) {
   try {
     const { method } = req;
 
+    if (!redis) {
+      return res.status(500).json({ error: 'REDIS_URL environment variable is missing' });
+    }
+
     if (method === 'GET') {
-      const data = await kv.get('prt_instruments');
+      const dataStr = await redis.get('prt_instruments');
+      const data = dataStr ? JSON.parse(dataStr) : null;
       return res.status(200).json(data || DEFAULT_INSTRUMENTS);
     } 
     
@@ -31,9 +39,10 @@ export default async function handler(req: any, res: any) {
       if (!newInst || !newInst.id) {
         return res.status(400).json({ error: 'Invalid data' });
       }
-      const data: any = await kv.get('prt_instruments') || DEFAULT_INSTRUMENTS;
+      const dataStr = await redis.get('prt_instruments');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_INSTRUMENTS;
       const updated = [...data, newInst];
-      await kv.set('prt_instruments', updated);
+      await redis.set('prt_instruments', JSON.stringify(updated));
       return res.status(200).json({ success: true });
     }
 
@@ -42,9 +51,10 @@ export default async function handler(req: any, res: any) {
       if (!updatedInst || !updatedInst.id) {
         return res.status(400).json({ error: 'Invalid data' });
       }
-      const data: any = await kv.get('prt_instruments') || DEFAULT_INSTRUMENTS;
+      const dataStr = await redis.get('prt_instruments');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_INSTRUMENTS;
       const updated = data.map((i: any) => i.id === updatedInst.id ? updatedInst : i);
-      await kv.set('prt_instruments', updated);
+      await redis.set('prt_instruments', JSON.stringify(updated));
       return res.status(200).json({ success: true });
     }
 
@@ -54,15 +64,17 @@ export default async function handler(req: any, res: any) {
         return res.status(400).json({ error: 'Missing id query parameter' });
       }
       // Delete instrument
-      const data: any = await kv.get('prt_instruments') || DEFAULT_INSTRUMENTS;
+      const dataStr = await redis.get('prt_instruments');
+      const data = dataStr ? JSON.parse(dataStr) : DEFAULT_INSTRUMENTS;
       const updated = data.filter((i: any) => i.id !== id);
-      await kv.set('prt_instruments', updated);
+      await redis.set('prt_instruments', JSON.stringify(updated));
 
       // Cascade delete calibration records
-      const recordsData: any = await kv.get('prt_records');
-      if (recordsData) {
+      const recordsDataStr = await redis.get('prt_records');
+      if (recordsDataStr) {
+        const recordsData = JSON.parse(recordsDataStr);
         const updatedRecords = recordsData.filter((r: any) => r.instrumentId !== id);
-        await kv.set('prt_records', updatedRecords);
+        await redis.set('prt_records', JSON.stringify(updatedRecords));
       }
 
       return res.status(200).json({ success: true });
