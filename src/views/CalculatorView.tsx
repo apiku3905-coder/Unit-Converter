@@ -50,13 +50,13 @@ export function CalculatorView() {
 
   return (
     <div className="flex flex-col h-full">
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+      <header className="hidden md:flex h-16 bg-white border-b border-slate-200 items-center justify-between px-8 flex-shrink-0">
         <div className="flex items-center gap-4">
           <h2 className="text-lg font-medium">電阻/溫度換算器</h2>
         </div>
       </header>
       
-      <div className="flex-1 p-8 overflow-y-auto">
+      <div className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="max-w-4xl mx-auto space-y-6">
           <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
             <div className="flex items-center justify-between mb-6">

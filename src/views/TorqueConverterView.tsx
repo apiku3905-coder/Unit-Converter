@@ -68,8 +68,8 @@ export function TorqueConverterView() {
   };
 
   return (
-    <div className="p-8 h-full overflow-y-auto">
-      <header className="mb-8">
+    <div className="p-4 md:p-8 h-full overflow-y-auto">
+      <header className="hidden md:block mb-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">扭力單位換算</h2>
         <p className="text-slate-500 mt-1">輸入砝碼與扭力臂換算，或直接輸入扭力值進行單位換算</p>
       </header>

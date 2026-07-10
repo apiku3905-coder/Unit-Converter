@@ -20,14 +20,14 @@ export function InstrumentsView({ onSelectInstrument }: InstrumentsViewProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+      <header className="hidden md:flex h-16 bg-white border-b border-slate-200 items-center justify-between px-8 flex-shrink-0">
         <div className="flex items-center gap-4">
           <h2 className="text-lg font-medium">儀器 <span className="text-slate-400 text-sm font-normal">/ 標準件管理</span></h2>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsAdding(!isAdding)}
-            className="px-4 py-1.5 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 text-sm font-medium transition-colors flex items-center gap-2"
+            className="px-4 py-1.5 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 text-sm font-medium transition-colors flex items-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             新增標準件
@@ -35,8 +35,18 @@ export function InstrumentsView({ onSelectInstrument }: InstrumentsViewProps) {
         </div>
       </header>
 
-      <div className="flex-1 p-8 overflow-y-auto">
+      <div className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="max-w-4xl mx-auto space-y-6">
+          {/* Mobile-only "Add Instrument" button */}
+          <div className="md:hidden flex justify-end">
+            <button
+              onClick={() => setIsAdding(!isAdding)}
+              className="w-full py-2.5 bg-indigo-600 text-white rounded-lg shadow-sm hover:bg-indigo-700 text-sm font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              {isAdding ? '取消新增' : '新增標準件'}
+            </button>
+          </div>
           {isAdding && (
             <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">新增儀器</h3>

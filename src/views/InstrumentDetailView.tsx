@@ -142,11 +142,11 @@ export function InstrumentDetailView({ instrumentId, onBack }: InstrumentDetailV
         </div>
       )}
 
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+      <header className="hidden md:flex h-16 bg-white border-b border-slate-200 items-center justify-between px-8 flex-shrink-0">
         <div className="flex items-center gap-4">
           <button 
             onClick={onBack}
-            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors -ml-2"
+            className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors -ml-2 cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -156,15 +156,35 @@ export function InstrumentDetailView({ instrumentId, onBack }: InstrumentDetailV
           <span className="text-sm text-slate-500 font-medium">序號：{instrument.serialNumber}</span>
           <button 
             onClick={() => setShowDeleteConfirm(true)}
-            className="px-4 py-1.5 bg-red-50 text-red-600 rounded shadow-sm border border-red-100 hover:bg-red-100 text-sm font-medium transition-colors"
+            className="px-4 py-1.5 bg-red-50 text-red-600 rounded shadow-sm border border-red-100 hover:bg-red-100 text-sm font-medium transition-colors cursor-pointer"
           >
             刪除標準件
           </button>
         </div>
       </header>
 
-      <div className="flex-1 p-8 overflow-y-auto">
+      <div className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="max-w-5xl mx-auto space-y-6">
+          {/* Mobile-only control bar */}
+          <div className="md:hidden flex items-center justify-between mb-4 border-b border-slate-200 pb-4">
+            <button 
+              onClick={onBack}
+              className="flex items-center gap-2 text-indigo-600 font-medium text-sm cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              返回清單
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500 font-medium bg-slate-100 px-2 py-1 rounded">序號: {instrument.serialNumber}</span>
+              <button 
+                onClick={() => setShowDeleteConfirm(true)}
+                className="px-2.5 py-1 text-xs bg-red-50 text-red-600 rounded border border-red-100 hover:bg-red-100 font-medium transition-colors cursor-pointer"
+              >
+                刪除
+              </button>
+            </div>
+          </div>
+
           <div className="flex justify-between items-end mb-2">
             <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500">歷史追溯紀錄</h3>
             <button
@@ -177,7 +197,7 @@ export function InstrumentDetailView({ instrumentId, onBack }: InstrumentDetailV
                   setIsFormOpen(false);
                 }
               }}
-              className="px-4 py-1.5 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 text-sm font-medium transition-colors flex items-center gap-2"
+              className="px-4 py-1.5 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 text-sm font-medium transition-colors flex items-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               新增紀錄

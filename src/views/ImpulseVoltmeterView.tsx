@@ -16,8 +16,8 @@ export function ImpulseVoltmeterView() {
   }
 
   return (
-    <div className="p-8 h-full overflow-y-auto">
-      <header className="mb-8">
+    <div className="p-4 md:p-8 h-full overflow-y-auto">
+      <header className="hidden md:block mb-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">衝擊電壓表調整</h2>
         <p className="text-slate-500 mt-1">計算調整後的衝擊電壓表 F.S 值</p>
       </header>

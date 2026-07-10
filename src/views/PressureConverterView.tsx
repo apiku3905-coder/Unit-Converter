@@ -48,8 +48,8 @@ export function PressureConverterView() {
   ];
 
   return (
-    <div className="p-8 h-full overflow-y-auto">
-      <header className="mb-8">
+    <div className="p-4 md:p-8 h-full overflow-y-auto">
+      <header className="hidden md:block mb-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">壓力單位換算</h2>
         <p className="text-slate-500 mt-1">輸入任意單位數值，自動換算其他壓力單位</p>
       </header>

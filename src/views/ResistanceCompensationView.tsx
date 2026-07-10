@@ -16,8 +16,8 @@ export function ResistanceCompensationView() {
   }
 
   return (
-    <div className="p-8 h-full overflow-y-auto">
-      <header className="mb-8">
+    <div className="p-4 md:p-8 h-full overflow-y-auto">
+      <header className="hidden md:block mb-8">
         <h2 className="text-2xl font-bold text-slate-900 tracking-tight">電阻溫補計算</h2>
         <p className="text-slate-500 mt-1">計算標準電阻在不同溫度下的補償值</p>
       </header>
