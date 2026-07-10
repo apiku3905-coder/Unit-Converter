@@ -1,0 +1,6 @@
+{
+  "name": "白金電阻換算器 (PRT Calculator)",
+  "description": "白金電阻溫度計的溫度與電阻標準值換算系統，支援 ITS-90 參數與歷史追溯資料管理。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
