@@ -27,7 +27,7 @@ export function ResistanceCompensationView() {
           <div className="p-6 md:p-8 space-y-6">
             
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">標準電阻 (Ω)</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">標準電阻</label>
               <input
                 type="number"
                 step="any"
@@ -65,7 +65,7 @@ export function ResistanceCompensationView() {
             </div>
 
             <div className="pt-6 mt-6 border-t border-slate-100">
-              <label className="block text-sm font-semibold text-slate-700 mb-3">補償電阻值 (Ω)</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-3">補償電阻值</label>
               <div className="relative">
                 <input
                   type="text"
