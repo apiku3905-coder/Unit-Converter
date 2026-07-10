@@ -62,7 +62,7 @@ function AppContent() {
       {/* Sidebar Wrapper (Responsive sliding drawer on mobile, static on desktop) */}
       <div className={`fixed inset-y-0 left-0 z-50 transform ${
         isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } transition-transform duration-300 ease-in-out md:relative md:transform-none md:flex flex-shrink-0 h-full`}>
+      } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:flex flex-shrink-0 h-full`}>
         <Sidebar
           currentView={currentView}
           onChangeView={(view) => {
