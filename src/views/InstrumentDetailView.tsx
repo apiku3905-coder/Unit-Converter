@@ -9,7 +9,7 @@ interface InstrumentDetailViewProps {
 }
 
 export function InstrumentDetailView({ instrumentId, onBack }: InstrumentDetailViewProps) {
-  const { instruments, records, addRecord, updateRecord, deleteRecord, deleteInstrument } = usePRT();
+  const { instruments, records, addRecord, updateRecord, deleteRecord, deleteInstrument, isLoading } = usePRT();
   const instrument = instruments.find(i => i.id === instrumentId);
   const instRecords = records.filter(r => r.instrumentId === instrumentId).sort((a, b) => b.year - a.year);
 
@@ -34,7 +34,18 @@ export function InstrumentDetailView({ instrumentId, onBack }: InstrumentDetailV
   };
   const [formData, setFormData] = useState<Record<string, string>>(defaultFormData);
 
-  if (!instrument) return <div>Instrument not found</div>;
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 min-h-[400px] p-8">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-sm font-medium text-slate-500">正在從雲端載入資料...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!instrument) return <div className="p-8 text-center text-slate-500">找不到此標準件</div>;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -4,13 +4,20 @@ import { calculateResistance, calculateTemperature } from '../lib/calculator';
 import { ArrowRightLeft, FileWarning } from 'lucide-react';
 
 export function CalculatorView() {
-  const { instruments, records } = usePRT();
+  const { instruments, records, isLoading } = usePRT();
   const [selectedInstId, setSelectedInstId] = useState<string>(instruments[0]?.id || '');
   const [selectedYear, setSelectedYear] = useState<number | ''>('');
   
   const [calcMode, setCalcMode] = useState<'T_TO_R' | 'R_TO_T'>('T_TO_R');
   const [inputValue, setInputValue] = useState<string>('');
   const [result, setResult] = useState<number | null>(null);
+
+  // Set default instrument when loaded
+  useEffect(() => {
+    if (!selectedInstId && instruments.length > 0) {
+      setSelectedInstId(instruments[0].id);
+    }
+  }, [instruments, selectedInstId]);
 
   // Update selected year when instrument changes
   useEffect(() => {
@@ -47,6 +54,17 @@ export function CalculatorView() {
     
     setResult(res);
   }, [inputValue, calcMode, activeRecord]);
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 min-h-[400px] p-8">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-sm font-medium text-slate-500">正在從雲端載入資料...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full">

@@ -7,7 +7,7 @@ interface InstrumentsViewProps {
 }
 
 export function InstrumentsView({ onSelectInstrument }: InstrumentsViewProps) {
-  const { instruments, addInstrument } = usePRT();
+  const { instruments, addInstrument, isLoading } = usePRT();
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({ name: '', model: '', serialNumber: '' });
 
@@ -17,6 +17,17 @@ export function InstrumentsView({ onSelectInstrument }: InstrumentsViewProps) {
     setFormData({ name: '', model: '', serialNumber: '' });
     setIsAdding(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 min-h-[400px] p-8">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-sm font-medium text-slate-500">正在從雲端載入資料...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full">
