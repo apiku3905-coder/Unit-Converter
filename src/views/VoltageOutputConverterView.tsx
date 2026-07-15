@@ -78,58 +78,58 @@ export function VoltageOutputConverterView() {
                 溫度參數輸入
               </h3>
 
-              {/* Temperature Range Selector */}
-              <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-2">
-                  溫度範圍 Range (°C)
-                </label>
-                <select
-                  value={selectedRange}
-                  onChange={(e) => {
-                    setSelectedRange(e.target.value);
-                    // Clear or reset temp if desired, here we keep it and let useEffect recalculate
-                  }}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                >
-                  {Object.keys(RANGES).map((key) => (
-                    <option key={key} value={key}>
-                      {RANGES[key].label}
-                    </option>
-                  ))}
-                </select>
+              {/* Temperature Range & Actual Temperature side-by-side */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Temperature Range Selector */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 mb-2 font-medium">
+                    溫度範圍
+                  </label>
+                  <select
+                    value={selectedRange}
+                    onChange={(e) => setSelectedRange(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-base md:text-lg px-3 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                  >
+                    {Object.keys(RANGES).map((key) => (
+                      <option key={key} value={key}>
+                        {RANGES[key].label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Actual Temperature Input */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-400 mb-2 font-medium">
+                    實際溫度
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      step="any"
+                      value={actualTemp}
+                      onChange={(e) => setActualTemp(e.target.value)}
+                      placeholder={`${rangeInfo.min}~${rangeInfo.max}`}
+                      className={`w-full bg-slate-50 border rounded-lg text-base md:text-lg px-3 py-3 pr-8 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all ${
+                        isOutOfRange 
+                          ? 'border-amber-300 bg-amber-50/20' 
+                          : 'border-slate-200'
+                      }`}
+                    />
+                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-medium">
+                      °C
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              {/* Actual Temperature Input */}
-              <div>
-                <label className="block text-xs font-semibold text-slate-400 mb-2">
-                  實際溫度 Actual Temperature (°C)
-                </label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    step="any"
-                    value={actualTemp}
-                    onChange={(e) => setActualTemp(e.target.value)}
-                    placeholder={`輸入介於 ${rangeInfo.min} ~ ${rangeInfo.max} 之間`}
-                    className={`w-full bg-slate-50 border rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all ${
-                      isOutOfRange 
-                        ? 'border-amber-300 bg-amber-50/20' 
-                        : 'border-slate-200'
-                    }`}
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-medium">
-                    °C
-                  </span>
+              {/* Out of Range warning (Full width) */}
+              {isOutOfRange && (
+                <div className="text-xs text-amber-700 flex items-start gap-2 bg-amber-50 border border-amber-100 p-3 rounded-lg leading-relaxed">
+                  <ShieldAlert className="w-4 h-4 shrink-0 text-amber-500 mt-0.5" />
+                  <span>輸入溫度已超出量程限制（{rangeInfo.min} ~ {rangeInfo.max} °C），對應之輸出電壓計算結果已超出 1 ~ 5 V 的正常電壓區間。</span>
                 </div>
-                
-                {/* Out of Range warning */}
-                {isOutOfRange && (
-                  <div className="mt-2 text-xs text-amber-600 flex items-center gap-1">
-                    <ShieldAlert className="w-3.5 h-3.5" />
-                    <span>輸入溫度超出所選範圍，電壓計算結果將超出 1 ~ 5 V。</span>
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* Preset Buttons */}
               <div className="pt-2">
