@@ -1,6 +1,6 @@
 {
-  "name": "校正用換算系統",
-  "short_name": "換算系統",
+  "name": "校正換算工具",
+  "short_name": "校正換算工具",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -116,7 +116,7 @@ export function HomeView({ onSelectView }: HomeViewProps) {
             <rect x="145" y="63" width="55" height="24" fill="#0080ff" />
           </svg>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-800">換算系統</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-800">校正換算工具</h1>
             <p className="text-slate-400 text-xs mt-1 font-sans">Metrology & Calibration Converter Hub</p>
           </div>
         </div>

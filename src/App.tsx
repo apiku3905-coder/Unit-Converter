@@ -49,7 +49,7 @@ function AppContent() {
     if (view === 'back-emf') return '反電動勢(ke)換算';
     if (view === 'voltage-output') return 'Ω/V電壓輸出換算';
     if (view.startsWith('instrument-')) return '標準件詳情';
-    return '換算系統';
+    return '校正換算工具';
   };
 
   const renderView = () => {

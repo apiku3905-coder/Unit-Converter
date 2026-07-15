@@ -26,7 +26,7 @@ export function Sidebar({ currentView, onChangeView }: SidebarProps) {
             <rect x="0" y="63" width="55" height="24" fill="#0080ff" />
             <rect x="145" y="63" width="55" height="24" fill="#0080ff" />
           </svg>
-          <h1 className="text-lg font-bold tracking-tight text-slate-800">換算系統</h1>
+          <h1 className="text-lg font-bold tracking-tight text-slate-800">校正換算工具</h1>
         </div>
       </div>
 
