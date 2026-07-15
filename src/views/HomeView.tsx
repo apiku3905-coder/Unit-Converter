@@ -7,6 +7,7 @@ import {
   Zap,
   RotateCw,
   Cpu,
+  Activity,
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -84,6 +85,16 @@ export function HomeView({ onSelectView }: HomeViewProps) {
       color: 'from-fuchsia-500 to-pink-600',
       textColor: 'text-pink-600',
       bgColor: 'bg-pink-50',
+    },
+    {
+      id: 'voltage-output',
+      title: 'Ω/V電壓輸出換算',
+      desc: '分壓箱與電表靈敏度之內阻與負載誤差換算',
+      icon: Activity,
+      badge: '電學',
+      color: 'from-blue-500 to-indigo-600',
+      textColor: 'text-indigo-600',
+      bgColor: 'bg-indigo-50',
     },
   ];
 

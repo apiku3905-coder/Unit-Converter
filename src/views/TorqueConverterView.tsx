@@ -32,9 +32,9 @@ export function TorqueConverterView() {
     const w = parseFloat(weight);
     const a = parseFloat(arm);
     if (!isNaN(w) && !isNaN(a)) {
-      calculated_kgf_cm = w * a * 0.1;
-      calculated_kgf_m = w * a * 0.001;
-      calculated_n_m = w * a * 0.001 * 9.80665;
+      calculated_kgf_cm = w * a;
+      calculated_kgf_m = w * a * 0.01;
+      calculated_n_m = w * a * 0.01 * 9.80665;
     }
   } else {
     const t = parseFloat(torqueValue);
@@ -93,13 +93,13 @@ export function TorqueConverterView() {
               </div>
               
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">扭力臂 (mm)</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">扭力臂 (cm)</label>
                 <input
                   type="number"
                   step="any"
                   value={arm}
                   onChange={(e) => handleArmChange(e.target.value)}
-                  placeholder="例如: 100"
+                  placeholder="例如: 10"
                   className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
                 />
               </div>
@@ -149,9 +149,9 @@ export function TorqueConverterView() {
           <div className="bg-slate-50 p-6 border-t border-slate-100">
              <p className="text-xs text-slate-500 font-mono leading-relaxed">
                公式：<br/>
-               kgf·cm = 砝碼(kg) × 扭力臂(mm) × 0.1<br/>
-               kgf·m = 砝碼(kg) × 扭力臂(mm) × 0.001<br/>
-               N·m = 砝碼(kg) × 扭力臂(mm) × 0.001 × 9.80665
+               kgf·cm = 砝碼(kg) × 扭力臂(cm)<br/>
+               kgf·m = 砝碼(kg) × 扭力臂(cm) × 0.01<br/>
+               N·m = 砝碼(kg) × 扭力臂(cm) × 0.01 × 9.80665
              </p>
           </div>
         </div>

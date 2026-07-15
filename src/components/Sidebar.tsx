@@ -1,5 +1,4 @@
-import React from 'react';
-import { Calculator, Thermometer, Settings, Gauge, Wrench, Zap, RotateCw, Cpu } from 'lucide-react';
+import { Calculator, Thermometer, Settings, Gauge, Wrench, Zap, RotateCw, Cpu, Activity } from 'lucide-react';
 
 interface SidebarProps {
   currentView: string;
@@ -176,6 +175,26 @@ export function Sidebar({ currentView, onChangeView }: SidebarProps) {
             >
               <span className={`w-1.5 h-1.5 rounded-full ${currentView === 'back-emf' ? 'bg-green-400' : 'bg-slate-400'}`}></span>
               常數計算與換算
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <div className="px-2 py-1 text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+            <Activity className="w-4 h-4 text-slate-500" />
+            Ω/V
+          </div>
+          <div className="space-y-1 pl-5 border-l border-sky-200/80 ml-4">
+            <button
+              onClick={() => onChangeView('voltage-output')}
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                currentView === 'voltage-output'
+                  ? 'bg-indigo-600 text-white font-medium shadow-sm shadow-indigo-100'
+                  : 'text-slate-600 hover:bg-sky-100/80 hover:text-slate-900'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${currentView === 'voltage-output' ? 'bg-green-400' : 'bg-slate-400'}`}></span>
+              電壓輸出換算
             </button>
           </div>
         </div>

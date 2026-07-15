@@ -11,6 +11,7 @@ import { TorqueConverterView } from './views/TorqueConverterView';
 import { ImpulseVoltmeterView } from './views/ImpulseVoltmeterView';
 import { RotationSpeedView } from './views/RotationSpeedView';
 import { BackEmfView } from './views/BackEmfView';
+import { VoltageOutputConverterView } from './views/VoltageOutputConverterView';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 
 function AppContent() {
@@ -46,6 +47,7 @@ function AppContent() {
     if (view === 'impulse-voltmeter') return '衝擊電壓表調整';
     if (view === 'rotation-speed') return '轉速單位換算';
     if (view === 'back-emf') return '反電動勢(ke)換算';
+    if (view === 'voltage-output') return 'Ω/V電壓輸出換算';
     if (view.startsWith('instrument-')) return '標準件詳情';
     return '換算系統';
   };
@@ -69,6 +71,8 @@ function AppContent() {
       return <RotationSpeedView />;
     } else if (currentView === 'back-emf') {
       return <BackEmfView />;
+    } else if (currentView === 'voltage-output') {
+      return <VoltageOutputConverterView />;
     } else if (currentView.startsWith('instrument-')) {
       const id = currentView.split('instrument-')[1];
       return <InstrumentDetailView instrumentId={id} onBack={() => setCurrentView('instruments')} />;
