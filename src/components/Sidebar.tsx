@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, Thermometer, List, Settings, Gauge, Wrench, Zap } from 'lucide-react';
+import { Calculator, Thermometer, Settings, Gauge, Wrench, Zap, RotateCw, Cpu } from 'lucide-react';
 
 interface SidebarProps {
   currentView: string;
@@ -31,9 +31,9 @@ export function Sidebar({ currentView, onChangeView }: SidebarProps) {
         </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
-        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-2">功能</p>
-        
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-2">功能導覽</p>
+
         <div className="mb-4">
           <div className="px-2 py-1 text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
             <Thermometer className="w-4 h-4 text-slate-500" />
@@ -79,6 +79,7 @@ export function Sidebar({ currentView, onChangeView }: SidebarProps) {
             </button>
           </div>
         </div>
+
         <div className="mb-4">
           <div className="px-2 py-1 text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
             <Gauge className="w-4 h-4 text-slate-500" />
@@ -138,11 +139,52 @@ export function Sidebar({ currentView, onChangeView }: SidebarProps) {
             </button>
           </div>
         </div>
+
+        <div className="mb-4">
+          <div className="px-2 py-1 text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+            <RotateCw className="w-4 h-4 text-slate-500" />
+            轉速單位
+          </div>
+          <div className="space-y-1 pl-5 border-l border-sky-200/80 ml-4">
+            <button
+              onClick={() => onChangeView('rotation-speed')}
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                currentView === 'rotation-speed'
+                  ? 'bg-indigo-600 text-white font-medium shadow-sm shadow-indigo-100'
+                  : 'text-slate-600 hover:bg-sky-100/80 hover:text-slate-900'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${currentView === 'rotation-speed' ? 'bg-green-400' : 'bg-slate-400'}`}></span>
+              單位換算
+            </button>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <div className="px-2 py-1 text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-slate-500" />
+            反電動勢
+          </div>
+          <div className="space-y-1 pl-5 border-l border-sky-200/80 ml-4">
+            <button
+              onClick={() => onChangeView('back-emf')}
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
+                currentView === 'back-emf'
+                  ? 'bg-indigo-600 text-white font-medium shadow-sm shadow-indigo-100'
+                  : 'text-slate-600 hover:bg-sky-100/80 hover:text-slate-900'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${currentView === 'back-emf' ? 'bg-green-400' : 'bg-slate-400'}`}></span>
+              常數計算與換算
+            </button>
+          </div>
+        </div>
       </nav>
 
-      <div className="p-4 border-t border-sky-100">
+      <div className="p-4 border-t border-sky-100 shrink-0">
         <div className="text-xs text-slate-400 px-2 mb-2">&copy; 2026 Metrology Lab</div>
       </div>
     </aside>
   );
 }
+

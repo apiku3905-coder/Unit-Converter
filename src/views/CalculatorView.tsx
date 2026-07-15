@@ -3,7 +3,7 @@ import { usePRT } from '../context/PRTContext';
 import { calculateResistance, calculateTemperature } from '../lib/calculator';
 import { ArrowRightLeft, FileWarning } from 'lucide-react';
 
-export function CalculatorView() {
+export function CalculatorView({ onManageInstruments }: { onManageInstruments?: () => void }) {
   const { instruments, records, isLoading } = usePRT();
   const [selectedInstId, setSelectedInstId] = useState<string>(instruments[0]?.id || '');
   const [selectedYear, setSelectedYear] = useState<number | ''>('');
@@ -79,6 +79,14 @@ export function CalculatorView() {
           <section className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500">標準件選擇</h3>
+              {onManageInstruments && (
+                <button
+                  onClick={onManageInstruments}
+                  className="text-xs text-indigo-600 hover:text-indigo-800 font-medium cursor-pointer transition-colors flex items-center gap-1"
+                >
+                  ⚙️ 管理標準件
+                </button>
+              )}
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

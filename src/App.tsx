@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PRTProvider } from './context/PRTContext';
 import { Sidebar } from './components/Sidebar';
+import { HomeView } from './views/HomeView';
 import { CalculatorView } from './views/CalculatorView';
 import { InstrumentsView } from './views/InstrumentsView';
 import { InstrumentDetailView } from './views/InstrumentDetailView';
@@ -8,30 +9,52 @@ import { ResistanceCompensationView } from './views/ResistanceCompensationView';
 import { PressureConverterView } from './views/PressureConverterView';
 import { TorqueConverterView } from './views/TorqueConverterView';
 import { ImpulseVoltmeterView } from './views/ImpulseVoltmeterView';
-import { Menu, X } from 'lucide-react';
+import { RotationSpeedView } from './views/RotationSpeedView';
+import { BackEmfView } from './views/BackEmfView';
+import { Menu, X, ArrowLeft } from 'lucide-react';
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState<string>('calculator');
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
+  const [currentView, setCurrentView] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768 ? 'home' : 'calculator';
+    }
+    return 'calculator';
+  });
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile && currentView === 'home') {
+        setCurrentView('calculator');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [currentView]);
 
   const handleSelectInstrument = (id: string) => {
     setCurrentView(`instrument-${id}`);
   };
 
   const getViewTitle = (view: string) => {
-    if (view === 'calculator') return '電阻/溫度換算器';
+    if (view === 'home') return '功能選單';
+    if (view === 'calculator') return '白金電阻溫度計';
     if (view === 'instruments') return '標準件管理';
-    if (view === 'resistance-compensation') return '溫補計算';
+    if (view === 'resistance-compensation') return '電阻溫補計算';
     if (view === 'pressure-converter') return '壓力單位換算';
     if (view === 'torque-converter') return '扭力單位換算';
-    if (view === 'impulse-voltmeter') return '調整計算';
+    if (view === 'impulse-voltmeter') return '衝擊電壓表調整';
+    if (view === 'rotation-speed') return '轉速單位換算';
+    if (view === 'back-emf') return '反電動勢(ke)換算';
     if (view.startsWith('instrument-')) return '標準件詳情';
     return '換算系統';
   };
 
   const renderView = () => {
-    if (currentView === 'calculator') {
-      return <CalculatorView />;
+    if (currentView === 'home') {
+      return <HomeView onSelectView={(view) => setCurrentView(view)} />;
+    } else if (currentView === 'calculator') {
+      return <CalculatorView onManageInstruments={() => setCurrentView('instruments')} />;
     } else if (currentView === 'instruments') {
       return <InstrumentsView onSelectInstrument={handleSelectInstrument} />;
     } else if (currentView === 'resistance-compensation') {
@@ -42,6 +65,10 @@ function AppContent() {
       return <TorqueConverterView />;
     } else if (currentView === 'impulse-voltmeter') {
       return <ImpulseVoltmeterView />;
+    } else if (currentView === 'rotation-speed') {
+      return <RotationSpeedView />;
+    } else if (currentView === 'back-emf') {
+      return <BackEmfView />;
     } else if (currentView.startsWith('instrument-')) {
       const id = currentView.split('instrument-')[1];
       return <InstrumentDetailView instrumentId={id} onBack={() => setCurrentView('instruments')} />;
@@ -51,40 +78,37 @@ function AppContent() {
 
   return (
     <div className="flex h-screen bg-[#f8fafc] text-slate-900 font-sans overflow-hidden relative">
-      {/* Mobile Backdrop overlay */}
-      {isMobileSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 md:hidden"
-          onClick={() => setIsMobileSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar Wrapper (Responsive sliding drawer on mobile, static on desktop) */}
-      <div className={`fixed inset-y-0 left-0 z-50 transform ${
-        isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:flex flex-shrink-0 h-full`}>
+      {/* Sidebar Wrapper (Only visible on desktop) */}
+      <div className="hidden md:flex md:relative flex-shrink-0 h-full">
         <Sidebar
           currentView={currentView}
           onChangeView={(view) => {
             setCurrentView(view);
-            setIsMobileSidebarOpen(false);
           }}
         />
       </div>
 
       <main className="flex-1 flex flex-col overflow-y-auto">
-        {/* Mobile Header Bar */}
-        <header className="md:hidden h-14 bg-white border-b border-slate-200 flex items-center justify-between px-4 flex-shrink-0 z-30">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsMobileSidebarOpen(true)}
-              className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 focus:outline-none cursor-pointer"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-            <span className="font-bold text-slate-800 text-base">{getViewTitle(currentView)}</span>
-          </div>
-        </header>
+        {/* Mobile Header Bar (Only visible when not on home dashboard) */}
+        {currentView !== 'home' && (
+          <header className="md:hidden h-14 bg-white border-b border-slate-200 flex items-center justify-between px-4 flex-shrink-0 z-30">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  if (currentView.startsWith('instrument-')) {
+                    setCurrentView('instruments');
+                  } else {
+                    setCurrentView('home');
+                  }
+                }}
+                className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 focus:outline-none cursor-pointer flex items-center justify-center"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <span className="font-bold text-slate-800 text-base">{getViewTitle(currentView)}</span>
+            </div>
+          </header>
+        )}
 
         {renderView()}
       </main>
@@ -99,4 +123,5 @@ export default function App() {
     </PRTProvider>
   );
 }
+
 
