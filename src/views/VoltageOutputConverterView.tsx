@@ -71,7 +71,7 @@ export function VoltageOutputConverterView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           {/* Left Column: Inputs */}
-          <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+          <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between order-2 md:order-1">
             <div className="space-y-6">
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 flex items-center gap-2">
                 <Thermometer className="w-4 h-4 text-indigo-500" />
@@ -171,7 +171,7 @@ export function VoltageOutputConverterView() {
           </section>
 
           {/* Right Column: Results & Visualization */}
-          <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+          <section className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between order-1 md:order-2">
             <div>
               <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6 flex items-center gap-2">
                 <Zap className="w-4 h-4 text-indigo-500" />
@@ -185,20 +185,6 @@ export function VoltageOutputConverterView() {
                   <span className={`text-4xl font-mono font-black ${isOutOfRange ? 'text-amber-600' : 'text-indigo-700'}`}>
                     {voltageResult !== null ? `${voltageResult.toFixed(4)} V` : '---'}
                   </span>
-                </div>
-
-                {/* Percentage Display */}
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <span className="text-xs text-slate-400 block mb-1">量程佔比</span>
-                    <span className="text-md font-mono font-bold text-slate-700">
-                      {percentage !== null ? `${percentage.toFixed(2)} %` : '---'}
-                    </span>
-                  </div>
-                  <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <span className="text-xs text-slate-400 block mb-1">電壓輸出跨距</span>
-                    <span className="text-md font-mono font-bold text-slate-700">4.0 V</span>
-                  </div>
                 </div>
               </div>
             </div>
