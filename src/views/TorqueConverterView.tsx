@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 export function TorqueConverterView() {
   const [weight, setWeight] = useState<string>('');
@@ -82,26 +83,36 @@ export function TorqueConverterView() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">砝碼 (kg)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={weight}
-                  onChange={(e) => handleWeightChange(e.target.value)}
-                  placeholder="例如: 10"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={weight}
+                    onChange={(e) => handleWeightChange(e.target.value)}
+                    placeholder="例如: 10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleWeightChange(val)} />
+                  </div>
+                </div>
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">扭力臂 (cm)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={arm}
-                  onChange={(e) => handleArmChange(e.target.value)}
-                  placeholder="例如: 10"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={arm}
+                    onChange={(e) => handleArmChange(e.target.value)}
+                    placeholder="例如: 10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleArmChange(val)} />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -111,36 +122,51 @@ export function TorqueConverterView() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">扭力 (kgf·cm)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getDisplayValue('kgf_cm')}
-                    onChange={(e) => handleTorqueChange('kgf_cm', e.target.value)}
-                    placeholder="輸入 kgf·cm"
-                    className={`w-full text-xl md:text-2xl font-mono p-4 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'kgf_cm' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getDisplayValue('kgf_cm')}
+                      onChange={(e) => handleTorqueChange('kgf_cm', e.target.value)}
+                      placeholder="輸入 kgf·cm"
+                      className={`w-full text-xl md:text-2xl font-mono p-4 pr-12 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'kgf_cm' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleTorqueChange('kgf_cm', val)} />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">扭力 (kgf·m)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getDisplayValue('kgf_m')}
-                    onChange={(e) => handleTorqueChange('kgf_m', e.target.value)}
-                    placeholder="輸入 kgf·m"
-                    className={`w-full text-xl md:text-2xl font-mono p-4 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'kgf_m' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getDisplayValue('kgf_m')}
+                      onChange={(e) => handleTorqueChange('kgf_m', e.target.value)}
+                      placeholder="輸入 kgf·m"
+                      className={`w-full text-xl md:text-2xl font-mono p-4 pr-12 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'kgf_m' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleTorqueChange('kgf_m', val)} />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">扭力 (N·m)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getDisplayValue('n_m')}
-                    onChange={(e) => handleTorqueChange('n_m', e.target.value)}
-                    placeholder="輸入 N·m"
-                    className={`w-full text-xl md:text-2xl font-mono p-4 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'n_m' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getDisplayValue('n_m')}
+                      onChange={(e) => handleTorqueChange('n_m', e.target.value)}
+                      placeholder="輸入 N·m"
+                      className={`w-full text-xl md:text-2xl font-mono p-4 pr-12 rounded-lg outline-none transition-shadow border ${torqueMode === 'from_torque' && activeTorqueUnit === 'n_m' ? 'bg-white border-indigo-400 ring-1 ring-indigo-400 text-slate-900' : 'bg-indigo-50 border-indigo-200 text-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white focus:text-slate-900'}`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleTorqueChange('n_m', val)} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

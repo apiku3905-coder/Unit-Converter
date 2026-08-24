@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 // Math Constants
 const SQRT_2 = Math.sqrt(2);
@@ -333,18 +334,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">有效值電壓 Vrms (V)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getVoltDisplay('vrms')}
-                    onChange={(e) => handleVoltChange('vrms', e.target.value)}
-                    placeholder="輸入 Vrms"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeVoltUnit === 'vrms' && voltValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getVoltDisplay('vrms')}
+                      onChange={(e) => handleVoltChange('vrms', e.target.value)}
+                      placeholder="輸入 Vrms"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeVoltUnit === 'vrms' && voltValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleVoltChange('vrms', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 2. 峰值電壓 Vp */}
@@ -352,18 +358,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">峰值電壓 Vp (V)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getVoltDisplay('vp')}
-                    onChange={(e) => handleVoltChange('vp', e.target.value)}
-                    placeholder="輸入 Vp"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeVoltUnit === 'vp' && voltValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getVoltDisplay('vp')}
+                      onChange={(e) => handleVoltChange('vp', e.target.value)}
+                      placeholder="輸入 Vp"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeVoltUnit === 'vp' && voltValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleVoltChange('vp', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 3. 轉速 (rpm) */}
@@ -371,18 +382,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">轉速 (rpm)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('rpm')}
-                    onChange={(e) => handleSpeedChange('rpm', e.target.value)}
-                    placeholder="輸入轉速"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'rpm' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('rpm')}
+                      onChange={(e) => handleSpeedChange('rpm', e.target.value)}
+                      placeholder="輸入轉速"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'rpm' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('rpm', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 4. 脈波數 (Pulse) */}
@@ -393,15 +409,20 @@ export function BackEmfView() {
                       PPR 設定
                     </span>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    min="1"
-                    value={pulse}
-                    onChange={(e) => setPulse(e.target.value)}
-                    placeholder="1"
-                    className="w-full text-lg font-mono p-2.5 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      min="1"
+                      value={pulse}
+                      onChange={(e) => setPulse(e.target.value)}
+                      placeholder="1"
+                      className="w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setPulse(val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 5. 脈波頻率 (Hz) */}
@@ -409,18 +430,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">脈波頻率 (Hz)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('pulse_hz')}
-                    onChange={(e) => handleSpeedChange('pulse_hz', e.target.value)}
-                    placeholder="輸入脈波頻率"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'pulse_hz' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('pulse_hz')}
+                      onChange={(e) => handleSpeedChange('pulse_hz', e.target.value)}
+                      placeholder="輸入脈波頻率"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'pulse_hz' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('pulse_hz', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 6. 角速度 (rad/s) */}
@@ -428,18 +454,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">角速度 (rad/s)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('rads')}
-                    onChange={(e) => handleSpeedChange('rads', e.target.value)}
-                    placeholder="輸入角速度"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'rads' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('rads')}
+                      onChange={(e) => handleSpeedChange('rads', e.target.value)}
+                      placeholder="輸入角速度"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'rads' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('rads', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 7. 峰對峰值電壓 Vp-p */}
@@ -447,18 +478,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">峰對峰值電壓 Vp-p (V)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getVoltDisplay('vpp')}
-                    onChange={(e) => handleVoltChange('vpp', e.target.value)}
-                    placeholder="輸入 Vp-p"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeVoltUnit === 'vpp' && voltValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getVoltDisplay('vpp')}
+                      onChange={(e) => handleVoltChange('vpp', e.target.value)}
+                      placeholder="輸入 Vp-p"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeVoltUnit === 'vpp' && voltValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleVoltChange('vpp', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 8. 平均值電壓 Vavg */}
@@ -466,18 +502,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">平均值電壓 Vavg (V)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getVoltDisplay('vavg')}
-                    onChange={(e) => handleVoltChange('vavg', e.target.value)}
-                    placeholder="輸入 Vavg"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeVoltUnit === 'vavg' && voltValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getVoltDisplay('vavg')}
+                      onChange={(e) => handleVoltChange('vavg', e.target.value)}
+                      placeholder="輸入 Vavg"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeVoltUnit === 'vavg' && voltValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleVoltChange('vavg', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 9. 頻率 (Hz) */}
@@ -485,18 +526,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">頻率 (Hz) (旋轉頻率)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('hz')}
-                    onChange={(e) => handleSpeedChange('hz', e.target.value)}
-                    placeholder="輸入頻率"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'hz' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('hz')}
+                      onChange={(e) => handleSpeedChange('hz', e.target.value)}
+                      placeholder="輸入頻率"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'hz' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('hz', val)} />
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -510,14 +556,19 @@ export function BackEmfView() {
                       反電動勢常數 Ke (Vp / (rad/s))
                     </label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={keInput}
-                    onChange={(e) => setKeInput(e.target.value)}
-                    placeholder="請輸入 Ke 值"
-                    className="w-full text-lg font-mono p-2.5 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={keInput}
+                      onChange={(e) => setKeInput(e.target.value)}
+                      placeholder="請輸入 Ke 值"
+                      className="w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setKeInput(val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 2. 轉速 (rpm) */}
@@ -525,18 +576,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">轉速 (rpm)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('rpm')}
-                    onChange={(e) => handleSpeedChange('rpm', e.target.value)}
-                    placeholder="輸入轉速"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'rpm' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('rpm')}
+                      onChange={(e) => handleSpeedChange('rpm', e.target.value)}
+                      placeholder="輸入轉速"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'rpm' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('rpm', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 3. 脈波數 (Pulse) */}
@@ -547,15 +603,20 @@ export function BackEmfView() {
                       PPR 設定
                     </span>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    min="1"
-                    value={pulse}
-                    onChange={(e) => setPulse(e.target.value)}
-                    placeholder="1"
-                    className="w-full text-lg font-mono p-2.5 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      min="1"
+                      value={pulse}
+                      onChange={(e) => setPulse(e.target.value)}
+                      placeholder="1"
+                      className="w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setPulse(val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 4. 脈波頻率 (Hz) */}
@@ -563,18 +624,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">脈波頻率 (Hz)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('pulse_hz')}
-                    onChange={(e) => handleSpeedChange('pulse_hz', e.target.value)}
-                    placeholder="輸入脈波頻率"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'pulse_hz' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('pulse_hz')}
+                      onChange={(e) => handleSpeedChange('pulse_hz', e.target.value)}
+                      placeholder="輸入脈波頻率"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'pulse_hz' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('pulse_hz', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 5. 角速度 (rad/s) */}
@@ -582,18 +648,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">角速度 (rad/s)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('rads')}
-                    onChange={(e) => handleSpeedChange('rads', e.target.value)}
-                    placeholder="輸入角速度"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'rads' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('rads')}
+                      onChange={(e) => handleSpeedChange('rads', e.target.value)}
+                      placeholder="輸入角速度"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'rads' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('rads', val)} />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 6. 頻率 (Hz) */}
@@ -601,18 +672,23 @@ export function BackEmfView() {
                   <div className="flex justify-between items-baseline mb-2">
                     <label className="block text-xs font-semibold text-slate-700">頻率 (Hz) (旋轉頻率)</label>
                   </div>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getSpeedDisplay('hz')}
-                    onChange={(e) => handleSpeedChange('hz', e.target.value)}
-                    placeholder="輸入頻率"
-                    className={`w-full text-lg font-mono p-2.5 rounded-lg outline-none border transition-all ${
-                      activeSpeedUnit === 'hz' && speedValue
-                        ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
-                        : 'bg-white border-slate-200 text-slate-900'
-                    }`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getSpeedDisplay('hz')}
+                      onChange={(e) => handleSpeedChange('hz', e.target.value)}
+                      placeholder="輸入頻率"
+                      className={`w-full text-lg font-mono p-2.5 pr-12 rounded-lg outline-none border transition-all ${
+                        activeSpeedUnit === 'hz' && speedValue
+                          ? 'bg-white border-indigo-200 text-slate-900 focus:ring-2 focus:ring-indigo-500'
+                          : 'bg-white border-slate-200 text-slate-900'
+                      }`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleSpeedChange('hz', val)} />
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -661,58 +737,78 @@ export function BackEmfView() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Vp / (rad/s)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={getKeDisplayValue('pk_rad')}
-                  onChange={(e) => handleKeConverterChange('pk_rad', e.target.value)}
-                  placeholder="輸入 Vp / (rad/s)"
-                  className={`w-full bg-slate-50 border ${
-                    activeKeUnit === 'pk_rad' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
-                  } rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={getKeDisplayValue('pk_rad')}
+                    onChange={(e) => handleKeConverterChange('pk_rad', e.target.value)}
+                    placeholder="輸入 Vp / (rad/s)"
+                    className={`w-full bg-slate-50 border ${
+                      activeKeUnit === 'pk_rad' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
+                    } rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleKeConverterChange('pk_rad', val)} />
+                  </div>
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Vp / krpm</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={getKeDisplayValue('pk_krpm')}
-                  onChange={(e) => handleKeConverterChange('pk_krpm', e.target.value)}
-                  placeholder="輸入 Vp / krpm"
-                  className={`w-full bg-slate-50 border ${
-                    activeKeUnit === 'pk_krpm' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
-                  } rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={getKeDisplayValue('pk_krpm')}
+                    onChange={(e) => handleKeConverterChange('pk_krpm', e.target.value)}
+                    placeholder="輸入 Vp / krpm"
+                    className={`w-full bg-slate-50 border ${
+                      activeKeUnit === 'pk_krpm' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
+                    } rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleKeConverterChange('pk_krpm', val)} />
+                  </div>
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Vrms / krpm</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={getKeDisplayValue('rms_krpm')}
-                  onChange={(e) => handleKeConverterChange('rms_krpm', e.target.value)}
-                  placeholder="輸入 Vrms / krpm"
-                  className={`w-full bg-slate-50 border ${
-                    activeKeUnit === 'rms_krpm' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
-                  } rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={getKeDisplayValue('rms_krpm')}
+                    onChange={(e) => handleKeConverterChange('rms_krpm', e.target.value)}
+                    placeholder="輸入 Vrms / krpm"
+                    className={`w-full bg-slate-50 border ${
+                      activeKeUnit === 'rms_krpm' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
+                    } rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleKeConverterChange('rms_krpm', val)} />
+                  </div>
+                </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Vrms / (rad/s)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={getKeDisplayValue('rms_rad')}
-                  onChange={(e) => handleKeConverterChange('rms_rad', e.target.value)}
-                  placeholder="輸入 Vrms / (rad/s)"
-                  className={`w-full bg-slate-50 border ${
-                    activeKeUnit === 'rms_rad' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
-                  } rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={getKeDisplayValue('rms_rad')}
+                    onChange={(e) => handleKeConverterChange('rms_rad', e.target.value)}
+                    placeholder="輸入 Vrms / (rad/s)"
+                    className={`w-full bg-slate-50 border ${
+                      activeKeUnit === 'rms_rad' && converterValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'
+                    } rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none font-mono`}
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => handleKeConverterChange('rms_rad', val)} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

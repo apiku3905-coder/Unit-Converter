@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 export function ImpulseVoltmeterView() {
   const [beforeFS, setBeforeFS] = useState<string>('');
@@ -31,36 +32,51 @@ export function ImpulseVoltmeterView() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">衝擊電壓表 F.S (V)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={beforeFS}
-                    onChange={(e) => setBeforeFS(e.target.value)}
-                    placeholder="例如: 1000"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={beforeFS}
+                      onChange={(e) => setBeforeFS(e.target.value)}
+                      placeholder="例如: 1000"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setBeforeFS(val)} />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">衝擊電壓值 (V)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={beforeRead}
-                    onChange={(e) => setBeforeRead(e.target.value)}
-                    placeholder="例如: 990"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={beforeRead}
+                      onChange={(e) => setBeforeRead(e.target.value)}
+                      placeholder="例如: 990"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setBeforeRead(val)} />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">標準值 (V)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={standard}
-                    onChange={(e) => setStandard(e.target.value)}
-                    placeholder="例如: 1000"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={standard}
+                      onChange={(e) => setStandard(e.target.value)}
+                      placeholder="例如: 1000"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => setStandard(val)} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

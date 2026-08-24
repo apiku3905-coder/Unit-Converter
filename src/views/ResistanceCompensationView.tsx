@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 export function ResistanceCompensationView() {
   const [standardResistance, setStandardResistance] = useState<string>('');
@@ -28,39 +29,54 @@ export function ResistanceCompensationView() {
             
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">標準電阻</label>
-              <input
-                type="number"
-                step="any"
-                value={standardResistance}
-                onChange={(e) => setStandardResistance(e.target.value)}
-                placeholder="例如: 100"
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-              />
+              <div className="relative flex items-center">
+                <input
+                  type="number"
+                  step="any"
+                  value={standardResistance}
+                  onChange={(e) => setStandardResistance(e.target.value)}
+                  placeholder="例如: 100"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <VoiceInputButton onResult={(val) => setStandardResistance(val)} />
+                </div>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">顧客補償溫度 (°C)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={compensationTemp}
-                  onChange={(e) => setCompensationTemp(e.target.value)}
-                  placeholder="例如: 20"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={compensationTemp}
+                    onChange={(e) => setCompensationTemp(e.target.value)}
+                    placeholder="例如: 20"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => setCompensationTemp(val)} />
+                  </div>
+                </div>
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">顧客實際溫度 (°C)</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={actualTemp}
-                  onChange={(e) => setActualTemp(e.target.value)}
-                  placeholder="例如: 25"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="number"
+                    step="any"
+                    value={actualTemp}
+                    onChange={(e) => setActualTemp(e.target.value)}
+                    placeholder="例如: 25"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <VoiceInputButton onResult={(val) => setActualTemp(val)} />
+                  </div>
+                </div>
               </div>
             </div>
 

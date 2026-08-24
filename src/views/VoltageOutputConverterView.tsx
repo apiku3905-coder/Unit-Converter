@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Thermometer, Zap, Info, ShieldAlert } from 'lucide-react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 interface RangeConfig {
   min: number;
@@ -103,22 +104,25 @@ export function VoltageOutputConverterView() {
                   <label className="block text-xs font-semibold text-slate-400 mb-2 font-medium">
                     實際溫度
                   </label>
-                  <div className="relative">
+                  <div className="relative flex items-center">
                     <input
                       type="number"
                       step="any"
                       value={actualTemp}
                       onChange={(e) => setActualTemp(e.target.value)}
                       placeholder={`${rangeInfo.min}~${rangeInfo.max}`}
-                      className={`w-full bg-slate-50 border rounded-lg text-base md:text-lg px-3 py-3 pr-8 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all ${
+                      className={`w-full bg-slate-50 border rounded-lg text-base md:text-lg px-3 py-3 pr-16 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all ${
                         isOutOfRange 
                           ? 'border-amber-300 bg-amber-50/20' 
                           : 'border-slate-200'
                       }`}
                     />
-                    <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-medium">
-                      °C
-                    </span>
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                      <VoiceInputButton onResult={(val) => setActualTemp(val)} />
+                      <span className="text-slate-400 text-xs font-medium font-sans">
+                        °C
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

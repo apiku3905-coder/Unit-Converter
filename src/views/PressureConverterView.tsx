@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 const CONVERSION_RATES = {
   Pa: 1,
@@ -61,14 +62,19 @@ export function PressureConverterView() {
               {units.map((u) => (
                 <div key={u.id} className={u.id === 'Pa' ? 'md:col-span-2' : ''}>
                   <label className="block text-sm font-semibold text-slate-700 mb-2">{u.label}</label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={getDisplayValue(u.id)}
-                    onChange={(e) => handleInputChange(u.id, e.target.value)}
-                    placeholder={`輸入 ${u.label}`}
-                    className={`w-full bg-slate-50 border ${activeUnit === u.id && inputValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'} rounded-lg text-lg px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow font-mono`}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      step="any"
+                      value={getDisplayValue(u.id)}
+                      onChange={(e) => handleInputChange(u.id, e.target.value)}
+                      placeholder={`輸入 ${u.label}`}
+                      className={`w-full bg-slate-50 border ${activeUnit === u.id && inputValue ? 'border-indigo-400 ring-1 ring-indigo-400' : 'border-slate-200'} rounded-lg text-lg px-4 pr-12 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow font-mono`}
+                    />
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <VoiceInputButton onResult={(val) => handleInputChange(u.id, val)} />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

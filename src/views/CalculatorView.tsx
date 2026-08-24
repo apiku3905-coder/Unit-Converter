@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usePRT } from '../context/PRTContext';
 import { calculateResistance, calculateTemperature } from '../lib/calculator';
 import { ArrowRightLeft, FileWarning } from 'lucide-react';
+import { VoiceInputButton } from '../components/VoiceInputButton';
 
 export function CalculatorView({ onManageInstruments }: { onManageInstruments?: () => void }) {
   const { instruments, records, isLoading } = usePRT();
@@ -143,18 +144,21 @@ export function CalculatorView({ onManageInstruments }: { onManageInstruments?: 
                     <label className="text-xs font-semibold text-slate-400">
                       輸入 {calcMode === 'T_TO_R' ? '溫度 (°C)' : '電阻 (Ω)'}
                     </label>
-                    <div className="relative">
+                    <div className="relative flex items-center">
                       <input
                         type="number"
                         step="any"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="0.000"
-                        className="w-full text-4xl font-mono p-4 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="w-full text-4xl font-mono p-4 pr-24 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg font-medium font-sans italic">
-                        {calcMode === 'T_TO_R' ? '°C' : 'Ω'}
-                      </span>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                        <VoiceInputButton onResult={(val) => setInputValue(val)} />
+                        <span className="text-slate-400 text-lg font-medium font-sans italic">
+                          {calcMode === 'T_TO_R' ? '°C' : 'Ω'}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
